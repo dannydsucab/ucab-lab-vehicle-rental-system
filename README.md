@@ -23,7 +23,7 @@ El objetivo de este ejercicio es desarrollar un sistema de gestión de alquiler 
   - Todos los atributos deben ser **privados**, y debe usarse encapsulamiento para acceder y modificar los mismos.
 
 4. **Consideraciones Adicionales**:
-  - Crear una clase `Agencia` con el método `main()` para probar las funcionalidades desarrolladas.
+  - Crear una clase `Concesionario` con el método `main()` para probar las funcionalidades desarrolladas.
   - Se debe utilizar **polimorfismo** al implementar el método `mostrarInformacion()` en la clase `Cliente`.
   - Realizar al menos tres alquileres de vehículos, y mostrar la información del cliente, vehículo y costo total del alquiler.
 

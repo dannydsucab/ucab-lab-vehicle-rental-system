@@ -44,13 +44,6 @@ public class AgenciaTest {
   }
 
   @Test
-  public void testEncapsulamiento() {
-    assertThrows(IllegalAccessException.class, () -> {
-      vehiculo.matricula = "XYZ789"; // Esto debería fallar debido a que el atributo es privado
-    });
-  }
-
-  @Test
   public void testListarVehiculosDisponibles() {
     agencia.realizarAlquiler(cliente, vehiculo, "2024-11-01", "2024-11-05");
     assertEquals(0, agencia.listarVehiculosDisponibles().size(), "No debería haber vehículos disponibles después del alquiler");
