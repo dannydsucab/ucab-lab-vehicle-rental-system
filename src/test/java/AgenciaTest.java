@@ -1,9 +1,8 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import ve.edu.ucab.lab.Agencia;
-import ve.edu.ucab.lab.Cliente;
-import ve.edu.ucab.lab.Persona;
-import ve.edu.ucab.lab.Vehiculo;
+import ve.edu.ucab.lab.*;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
