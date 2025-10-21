@@ -21,26 +21,25 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
           cache: maven
-      
+
       # ========================================
-      # COMPILACIÓN (2 puntos)
+      # COMPILACIÓN (sin puntos, pero requerida)
       # ========================================
-      - name: 🔨 Compilación del Proyecto (2 puntos)
+      - name: 🔨 Compilación del Proyecto
         id: compilacion
         run: |
           echo "### 🔨 Compilación del Proyecto" >> $GITHUB_STEP_SUMMARY
           if mvn clean compile; then
-            echo "✅ Compilación exitosa - 2 puntos" >> $GITHUB_STEP_SUMMARY
-            echo "points=2" >> $GITHUB_OUTPUT
+            echo "✅ Compilación exitosa (requerida para continuar)" >> $GITHUB_STEP_SUMMARY
           else
-            echo "❌ Compilación fallida - 0 puntos" >> $GITHUB_STEP_SUMMARY
-            echo "points=0" >> $GITHUB_OUTPUT
+            echo "❌ Compilación fallida - No se pueden ejecutar las pruebas" >> $GITHUB_STEP_SUMMARY
             exit 1
           fi
-      
+
       # ========================================
       # PRUEBAS UNITARIAS (2 puntos cada una)
       # ========================================
+
       - name: 🧪 Test 1 - Alquilar Vehículo Ya Alquilado (2 puntos)
         id: test1
         continue-on-error: true
@@ -80,24 +79,11 @@ jobs:
             echo "points=0" >> $GITHUB_OUTPUT
           fi
 
-      - name: 🧪 Test 4 - Encapsulamiento (2 puntos)
+      - name: 🧪 Test 4 - Listar Vehículos Disponibles (2 puntos)
         id: test4
         continue-on-error: true
         run: |
-          echo "### 🧪 Test 4: Encapsulamiento" >> $GITHUB_STEP_SUMMARY
-          if mvn test -Dtest=AgenciaTest#testEncapsulamiento; then
-            echo "✅ Test pasado - 2 puntos" >> $GITHUB_STEP_SUMMARY
-            echo "points=2" >> $GITHUB_OUTPUT
-          else
-            echo "❌ Test fallido - 0 puntos" >> $GITHUB_STEP_SUMMARY
-            echo "points=0" >> $GITHUB_OUTPUT
-          fi
-
-      - name: 🧪 Test 5 - Listar Vehículos Disponibles (2 puntos)
-        id: test5
-        continue-on-error: true
-        run: |
-          echo "### 🧪 Test 5: Listar Vehículos Disponibles" >> $GITHUB_STEP_SUMMARY
+          echo "### 🧪 Test 4: Listar Vehículos Disponibles" >> $GITHUB_STEP_SUMMARY
           if mvn test -Dtest=AgenciaTest#testListarVehiculosDisponibles; then
             echo "✅ Test pasado - 2 puntos" >> $GITHUB_STEP_SUMMARY
             echo "points=2" >> $GITHUB_OUTPUT
@@ -106,11 +92,11 @@ jobs:
             echo "points=0" >> $GITHUB_OUTPUT
           fi
 
-      - name: 🧪 Test 6 - Cliente es una Persona (2 puntos)
-        id: test6
+      - name: 🧪 Test 5 - Cliente es una Persona (2 puntos)
+        id: test5
         continue-on-error: true
         run: |
-          echo "### 🧪 Test 6: Cliente es una Persona" >> $GITHUB_STEP_SUMMARY
+          echo "### 🧪 Test 5: Cliente es una Persona" >> $GITHUB_STEP_SUMMARY
           if mvn test -Dtest=AgenciaTest#testClienteEsUnaPersona; then
             echo "✅ Test pasado - 2 puntos" >> $GITHUB_STEP_SUMMARY
             echo "points=2" >> $GITHUB_OUTPUT
@@ -118,7 +104,72 @@ jobs:
             echo "❌ Test fallido - 0 puntos" >> $GITHUB_STEP_SUMMARY
             echo "points=0" >> $GITHUB_OUTPUT
           fi
-      
+
+      - name: 🧪 Test 6 - Calcular Costo Total Alquiler (2 puntos)
+        id: test6
+        continue-on-error: true
+        run: |
+          echo "### 🧪 Test 6: Calcular Costo Total Alquiler" >> $GITHUB_STEP_SUMMARY
+          if mvn test -Dtest=AgenciaTest#testCalcularCostoTotalAlquiler; then
+            echo "✅ Test pasado - 2 puntos" >> $GITHUB_STEP_SUMMARY
+            echo "points=2" >> $GITHUB_OUTPUT
+          else
+            echo "❌ Test fallido - 0 puntos" >> $GITHUB_STEP_SUMMARY
+            echo "points=0" >> $GITHUB_OUTPUT
+          fi
+
+      - name: 🧪 Test 7 - Registrar Múltiples Clientes (2 puntos)
+        id: test7
+        continue-on-error: true
+        run: |
+          echo "### 🧪 Test 7: Registrar Múltiples Clientes" >> $GITHUB_STEP_SUMMARY
+          if mvn test -Dtest=AgenciaTest#testRegistrarMultiplesClientes; then
+            echo "✅ Test pasado - 2 puntos" >> $GITHUB_STEP_SUMMARY
+            echo "points=2" >> $GITHUB_OUTPUT
+          else
+            echo "❌ Test fallido - 0 puntos" >> $GITHUB_STEP_SUMMARY
+            echo "points=0" >> $GITHUB_OUTPUT
+          fi
+
+      - name: 🧪 Test 8 - Alquilar Vehículo No Disponible (2 puntos)
+        id: test8
+        continue-on-error: true
+        run: |
+          echo "### 🧪 Test 8: Alquilar Vehículo No Disponible" >> $GITHUB_STEP_SUMMARY
+          if mvn test -Dtest=AgenciaTest#testAlquilarVehiculoNoDisponible; then
+            echo "✅ Test pasado - 2 puntos" >> $GITHUB_STEP_SUMMARY
+            echo "points=2" >> $GITHUB_OUTPUT
+          else
+            echo "❌ Test fallido - 0 puntos" >> $GITHUB_STEP_SUMMARY
+            echo "points=0" >> $GITHUB_OUTPUT
+          fi
+
+      - name: 🧪 Test 9 - Mostrar Información Cliente (2 puntos)
+        id: test9
+        continue-on-error: true
+        run: |
+          echo "### 🧪 Test 9: Mostrar Información Cliente" >> $GITHUB_STEP_SUMMARY
+          if mvn test -Dtest=AgenciaTest#testMostrarInformacionCliente; then
+            echo "✅ Test pasado - 2 puntos" >> $GITHUB_STEP_SUMMARY
+            echo "points=2" >> $GITHUB_OUTPUT
+          else
+            echo "❌ Test fallido - 0 puntos" >> $GITHUB_STEP_SUMMARY
+            echo "points=0" >> $GITHUB_OUTPUT
+          fi
+
+      - name: 🧪 Test 10 - Listar Alquileres Activos (2 puntos)
+        id: test10
+        continue-on-error: true
+        run: |
+          echo "### 🧪 Test 10: Listar Alquileres Activos" >> $GITHUB_STEP_SUMMARY
+          if mvn test -Dtest=AgenciaTest#testListarAlquileresActivos; then
+            echo "✅ Test pasado - 2 puntos" >> $GITHUB_STEP_SUMMARY
+            echo "points=2" >> $GITHUB_OUTPUT
+          else
+            echo "❌ Test fallido - 0 puntos" >> $GITHUB_STEP_SUMMARY
+            echo "points=0" >> $GITHUB_OUTPUT
+          fi
+
       # ========================================
       # CÁLCULO DE PUNTAJE TOTAL
       # ========================================
@@ -126,63 +177,110 @@ jobs:
         id: calcular_puntaje
         if: always()
         run: |
-          COMPILACION=${{ steps.compilacion.outputs.points || 0 }}
           TEST1=${{ steps.test1.outputs.points || 0 }}
           TEST2=${{ steps.test2.outputs.points || 0 }}
           TEST3=${{ steps.test3.outputs.points || 0 }}
           TEST4=${{ steps.test4.outputs.points || 0 }}
           TEST5=${{ steps.test5.outputs.points || 0 }}
           TEST6=${{ steps.test6.outputs.points || 0 }}
+          TEST7=${{ steps.test7.outputs.points || 0 }}
+          TEST8=${{ steps.test8.outputs.points || 0 }}
+          TEST9=${{ steps.test9.outputs.points || 0 }}
+          TEST10=${{ steps.test10.outputs.points || 0 }}
           
-          TOTAL=$((COMPILACION + TEST1 + TEST2 + TEST3 + TEST4 + TEST5 + TEST6))
-          PORCENTAJE=$((TOTAL * 100 / 14))
+          TOTAL=$((TEST1 + TEST2 + TEST3 + TEST4 + TEST5 + TEST6 + TEST7 + TEST8 + TEST9 + TEST10))
+          PORCENTAJE=$((TOTAL * 100 / 20))
           
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "---" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "## 📊 RESUMEN DE CALIFICACIÓN" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "| 📝 Criterio | ✅ Puntos Obtenidos | 🎯 Puntos Posibles |" >> $GITHUB_STEP_SUMMARY
-          echo "|-------------|--------------------:|-------------------:|" >> $GITHUB_STEP_SUMMARY
-          echo "| 🔨 Compilación | $COMPILACION | 2 |" >> $GITHUB_STEP_SUMMARY
-          echo "| 🧪 Test 1: Vehículo Ya Alquilado | $TEST1 | 2 |" >> $GITHUB_STEP_SUMMARY
-          echo "| 🧪 Test 2: Vehículo Disponible | $TEST2 | 2 |" >> $GITHUB_STEP_SUMMARY
-          echo "| 🧪 Test 3: Cancelar Alquiler | $TEST3 | 2 |" >> $GITHUB_STEP_SUMMARY
-          echo "| 🧪 Test 4: Encapsulamiento | $TEST4 | 2 |" >> $GITHUB_STEP_SUMMARY
-          echo "| 🧪 Test 5: Listar Vehículos | $TEST5 | 2 |" >> $GITHUB_STEP_SUMMARY
-          echo "| 🧪 Test 6: Cliente es Persona | $TEST6 | 2 |" >> $GITHUB_STEP_SUMMARY
-          echo "| **📈 TOTAL** | **$TOTAL** | **14** |" >> $GITHUB_STEP_SUMMARY
+          echo "| # | 📝 Prueba Unitaria | ✅ Puntos | 🎯 Total |" >> $GITHUB_STEP_SUMMARY
+          echo "|---|-------------------|-----------|----------|" >> $GITHUB_STEP_SUMMARY
+          echo "| 1 | Vehículo Ya Alquilado | $TEST1 | 2 |" >> $GITHUB_STEP_SUMMARY
+          echo "| 2 | Vehículo Disponible | $TEST2 | 2 |" >> $GITHUB_STEP_SUMMARY
+          echo "| 3 | Cancelar Alquiler | $TEST3 | 2 |" >> $GITHUB_STEP_SUMMARY
+          echo "| 4 | Listar Vehículos Disponibles | $TEST4 | 2 |" >> $GITHUB_STEP_SUMMARY
+          echo "| 5 | Cliente es Persona | $TEST5 | 2 |" >> $GITHUB_STEP_SUMMARY
+          echo "| 6 | Calcular Costo Total | $TEST6 | 2 |" >> $GITHUB_STEP_SUMMARY
+          echo "| 7 | Registrar Múltiples Clientes | $TEST7 | 2 |" >> $GITHUB_STEP_SUMMARY
+          echo "| 8 | Vehículo No Disponible | $TEST8 | 2 |" >> $GITHUB_STEP_SUMMARY
+          echo "| 9 | Mostrar Información Cliente | $TEST9 | 2 |" >> $GITHUB_STEP_SUMMARY
+          echo "| 10 | Listar Alquileres Activos | $TEST10 | 2 |" >> $GITHUB_STEP_SUMMARY
+          echo "| | **TOTAL** | **$TOTAL** | **20** |" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           
           # Calificación con emoji según porcentaje
-          if [ $TOTAL -eq 14 ]; then
+          if [ $TOTAL -eq 20 ]; then
             EMOJI="🏆"
-            MENSAJE="¡PERFECTO! Todas las pruebas pasaron"
+            MENSAJE="¡PERFECTO! Todas las pruebas pasaron - Excelencia total"
+            COLOR="🟢"
+          elif [ $TOTAL -ge 18 ]; then
+            EMOJI="🎉"
+            MENSAJE="¡Excelente trabajo! Casi perfecto"
+            COLOR="🟢"
+          elif [ $TOTAL -ge 14 ]; then
+            EMOJI="👍"
+            MENSAJE="¡Muy bien! Buen desempeño"
             COLOR="🟢"
           elif [ $TOTAL -ge 10 ]; then
-            EMOJI="🎉"
-            MENSAJE="¡Muy bien! Buen trabajo"
-            COLOR="🟢"
-          elif [ $TOTAL -ge 6 ]; then
             EMOJI="⚠️"
             MENSAJE="Aprobado, pero hay margen de mejora"
             COLOR="🟡"
           else
             EMOJI="❌"
-            MENSAJE="Necesitas revisar el código"
+            MENSAJE="Necesitas revisar y mejorar el código"
             COLOR="🔴"
           fi
           
-          echo "### $COLOR $EMOJI CALIFICACIÓN FINAL: $TOTAL/14 puntos ($PORCENTAJE%)" >> $GITHUB_STEP_SUMMARY
+          echo "### $COLOR $EMOJI CALIFICACIÓN FINAL: $TOTAL/20 puntos ($PORCENTAJE%)" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "> $MENSAJE" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
+          
+          # Feedback adicional
+          if [ $TOTAL -lt 20 ]; then
+            echo "#### 💡 Recomendaciones:" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            if [ $TEST1 -eq 0 ]; then
+              echo "- ⚠️ Revisa la validación para evitar alquilar vehículos ya alquilados" >> $GITHUB_STEP_SUMMARY
+            fi
+            if [ $TEST2 -eq 0 ]; then
+              echo "- ⚠️ Asegúrate de actualizar el estado del vehículo al alquilarlo" >> $GITHUB_STEP_SUMMARY
+            fi
+            if [ $TEST3 -eq 0 ]; then
+              echo "- ⚠️ Implementa correctamente la cancelación de alquileres" >> $GITHUB_STEP_SUMMARY
+            fi
+            if [ $TEST4 -eq 0 ]; then
+              echo "- ⚠️ Verifica el método para listar vehículos disponibles" >> $GITHUB_STEP_SUMMARY
+            fi
+            if [ $TEST5 -eq 0 ]; then
+              echo "- ⚠️ Revisa la herencia: Cliente debe extender de Persona" >> $GITHUB_STEP_SUMMARY
+            fi
+            if [ $TEST6 -eq 0 ]; then
+              echo "- ⚠️ Implementa correctamente el cálculo del costo total del alquiler" >> $GITHUB_STEP_SUMMARY
+            fi
+            if [ $TEST7 -eq 0 ]; then
+              echo "- ⚠️ Asegúrate de que se puedan registrar múltiples clientes" >> $GITHUB_STEP_SUMMARY
+            fi
+            if [ $TEST8 -eq 0 ]; then
+              echo "- ⚠️ Valida que no se puedan alquilar vehículos no disponibles" >> $GITHUB_STEP_SUMMARY
+            fi
+            if [ $TEST9 -eq 0 ]; then
+              echo "- ⚠️ Implementa el método mostrarInformacion() en Cliente" >> $GITHUB_STEP_SUMMARY
+            fi
+            if [ $TEST10 -eq 0 ]; then
+              echo "- ⚠️ Implementa correctamente la gestión de alquileres activos" >> $GITHUB_STEP_SUMMARY
+            fi
+            echo "" >> $GITHUB_STEP_SUMMARY
+          fi
           
           # Guardar para uso en otros steps
           echo "total_points=$TOTAL" >> $GITHUB_OUTPUT
           echo "percentage=$PORCENTAJE" >> $GITHUB_OUTPUT
           echo "emoji=$EMOJI" >> $GITHUB_OUTPUT
-      
+
       # ========================================
       # GENERAR BADGE DE CALIFICACIÓN
       # ========================================
@@ -203,10 +301,14 @@ jobs:
             COLOR="red"
           fi
           
-          echo "Badge URL: https://img.shields.io/badge/Calificación-$TOTAL%2F14-$COLOR" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "![Calificación](https://img.shields.io/badge/Calificación-$TOTAL%2F14-$COLOR)" >> $GITHUB_STEP_SUMMARY
-      
+          echo "---" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 🏅 Badge de Calificación" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "![Calificación](https://img.shields.io/badge/Calificación-$TOTAL%2F20-$COLOR)" >> $GITHUB_STEP_SUMMARY
+          echo "![Porcentaje](https://img.shields.io/badge/Porcentaje-$PORCENTAJE%25-$COLOR)" >> $GITHUB_STEP_SUMMARY
+
       # ========================================
       # COMENTARIO EN PR (Opcional)
       # ========================================
@@ -219,27 +321,33 @@ jobs:
             const percentage = ${{ steps.calcular_puntaje.outputs.percentage || 0 }};
             const emoji = "${{ steps.calcular_puntaje.outputs.emoji || '❓' }}";
             
-            const compilacion = ${{ steps.compilacion.outputs.points || 0 }};
             const test1 = ${{ steps.test1.outputs.points || 0 }};
             const test2 = ${{ steps.test2.outputs.points || 0 }};
             const test3 = ${{ steps.test3.outputs.points || 0 }};
             const test4 = ${{ steps.test4.outputs.points || 0 }};
             const test5 = ${{ steps.test5.outputs.points || 0 }};
             const test6 = ${{ steps.test6.outputs.points || 0 }};
+            const test7 = ${{ steps.test7.outputs.points || 0 }};
+            const test8 = ${{ steps.test8.outputs.points || 0 }};
+            const test9 = ${{ steps.test9.outputs.points || 0 }};
+            const test10 = ${{ steps.test10.outputs.points || 0 }};
             
             const body = `## ${emoji} Resultado de Autograding
             
-            ### 📊 Calificación: **${total}/14 puntos (${percentage}%)**
+            ### 📊 Calificación Final: **${total}/20 puntos (${percentage}%)**
             
-            | Criterio | Puntos |
-            |----------|--------|
-            | 🔨 Compilación | ${compilacion}/2 |
-            | 🧪 Test 1: Vehículo Ya Alquilado | ${test1}/2 |
-            | 🧪 Test 2: Vehículo Disponible | ${test2}/2 |
-            | 🧪 Test 3: Cancelar Alquiler | ${test3}/2 |
-            | 🧪 Test 4: Encapsulamiento | ${test4}/2 |
-            | 🧪 Test 5: Listar Vehículos | ${test5}/2 |
-            | 🧪 Test 6: Cliente es Persona | ${test6}/2 |
+            | # | Prueba | Puntos |
+            |---|--------|--------|
+            | 1 | Vehículo Ya Alquilado | ${test1}/2 |
+            | 2 | Vehículo Disponible | ${test2}/2 |
+            | 3 | Cancelar Alquiler | ${test3}/2 |
+            | 4 | Listar Vehículos | ${test4}/2 |
+            | 5 | Cliente es Persona | ${test5}/2 |
+            | 6 | Calcular Costo Total | ${test6}/2 |
+            | 7 | Múltiples Clientes | ${test7}/2 |
+            | 8 | Vehículo No Disponible | ${test8}/2 |
+            | 9 | Mostrar Información | ${test9}/2 |
+            | 10 | Alquileres Activos | ${test10}/2 |
             
             ---
             📝 Revisa los detalles completos en la pestaña [**Actions**](${context.payload.repository.html_url}/actions/runs/${context.runId})
